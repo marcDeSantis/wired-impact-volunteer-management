@@ -107,7 +107,7 @@ class WI_Volunteer_Users_List_Table extends WP_Users_List_Table {
 	 * Sort users by the number of volunteer opportunities they've participated in.
 	 *
 	 * This is used with usort to sort an array of users.
-	 * 
+	 *
 	 * @param  array $a User a information
 	 * @param  array $b User b information
 	 * @return int   1 or -1 to pass back the correct order
@@ -115,7 +115,7 @@ class WI_Volunteer_Users_List_Table extends WP_Users_List_Table {
 	public function sort_users_by_number_volunteer_opportunities( $a, $b ){
 		//Set up variables for returning numbers so we can handle flip the order if order is set to descending.
 		$less = -1;
-		$more = 1; 
+		$more = 1;
 		if( isset( $_REQUEST['order'] ) && $_REQUEST['order'] == 'desc' ){
 			$less = 1;
 			$more = -1;
@@ -144,6 +144,7 @@ class WI_Volunteer_Users_List_Table extends WP_Users_List_Table {
 			'name'     					=> __( 'Name', 'wired-impact-volunteer-management' ),
 			'email'    					=> __( 'E-mail', 'wired-impact-volunteer-management' ),
 			'phone'    					=> __( 'Phone Number', 'wired-impact-volunteer-management' ),
+			'tshirt'						=> __( 'T-Shirt Size', 'wired-impact-volunteer-management'),
 			'num_volunteer_opps'  		=> __( '# of Volunteer Opportunities', 'wired-impact-volunteer-management' ),
 		);
 
@@ -163,6 +164,7 @@ class WI_Volunteer_Users_List_Table extends WP_Users_List_Table {
 			'name'     					=> array( 'name', false ),
 			'email'    					=> array( 'email', false ),
 			'phone'     				=> array( 'phone', false ),
+			'tshirt'						=> array( 'tshirt', false ),
 			'num_volunteer_opps'  		=> array( 'num_volunteer_opps', false )
 		);
 
@@ -221,6 +223,7 @@ class WI_Volunteer_Users_List_Table extends WP_Users_List_Table {
 
 		$volunteer 			= new WI_Volunteer_Management_Volunteer( $user_object->ID );
 		$phone 				= $volunteer->meta['phone'];
+		$tshirt				= $volunteer->meta['tshirt'];
 		$num_volunteer_opps = $volunteer->meta['num_volunteer_opps'];
 		$admin_url 			= $volunteer->get_admin_url();
 
@@ -295,6 +298,9 @@ class WI_Volunteer_Users_List_Table extends WP_Users_List_Table {
 					break;
 				case 'phone':
 					$r .= "<td $attributes>$phone</td>";
+					break;
+				case 'tshirt':
+					$r .= "<td $attributes>$tshirt</td>";
 					break;
 				case 'num_volunteer_opps':
 					$r .= "<td $attributes>$num_volunteer_opps</td>";
